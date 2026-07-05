@@ -2,14 +2,41 @@
 
 from __future__ import annotations
 
+import importlib.util
 import logging
+import sys
 from pathlib import Path
 from typing import Any, Optional
 
 from llama_index.core import Document
-from llama_index.core.node_parser import CodeHierarchyNodeParser
 from llama_index.core.schema import BaseNode, MetadataMode
 from llama_index.core.utils import get_tokenizer
+
+
+def _load_code_hierarchy_parser_class():
+    """Load the parser class without triggering the deprecated package initializer."""
+    module_name = "llama_index.packs.code_hierarchy.code_hierarchy"
+    try:
+        module = __import__(module_name, fromlist=["CodeHierarchyNodeParser"])
+    except Exception:
+        module_path = None
+        for base in sys.path:
+            candidate = Path(base) / "llama_index" / "packs" / "code_hierarchy" / "code_hierarchy.py"
+            if candidate.exists():
+                module_path = candidate
+                break
+        if module_path is None:
+            raise
+        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        if spec is None or spec.loader is None:
+            raise ImportError(f"Unable to load parser module from {module_path}")
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+    return module.CodeHierarchyNodeParser
+
+
+CodeHierarchyNodeParser = _load_code_hierarchy_parser_class()
 
 logger = logging.getLogger(__name__)
 

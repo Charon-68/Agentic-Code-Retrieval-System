@@ -1,21 +1,76 @@
-# Python virtual environment
-.venv/
-
-# Python cache
+# Python bytecode and caches
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*$py.class
 
-# macOS
-.DS_Store
+# Packaging and build outputs
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
 
-# VS Code
-.vscode/
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.cover
+.pytype/
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.black_cache/
+.cache/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# pytest
-.pytest_cache/
+# Environment files
+.env
+.env.*
+!.env.example
 
-# mypy
-.mypy_cache/
+# Editors and IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+
+# Logs
+*.log
+logs/
+
+# Local vector stores and generated data
+chroma_db/
+chromadb/
+vector_db/
+storage/
+index/
+indexes/
+embeddings/
+
+# Temporary files
+tmp/
+temp/
+reports/
+outputs/
+data/cache/
+
+# Editor swap files
+*.swp
+*.swo

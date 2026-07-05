@@ -1,7 +1,71 @@
-[project]
-name = "my_project"
-version = "0.1.0"
-description = ""
-requires-python = ">=3.11"
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
-dependencies = []
+[project]
+name = "agentic-code-retrieval-system"
+version = "0.1.0"
+description = "Educational Agentic RAG system for semantic codebase understanding using hybrid retrieval, AST parsing, and LLM-based reasoning."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Shourya Saxena" }]
+license = { text = "MIT" }
+keywords = [
+    "agentic-ai",
+    "rag",
+    "llamaindex",
+    "code-intelligence",
+    "ast",
+    "hybrid-retrieval",
+    "llm",
+    "chromadb",
+    "openai",
+]
+dependencies = [
+    "openai>=1.40.0",
+    "anthropic>=0.34.0",
+    "chromadb>=0.5.0",
+    "llama-index>=0.11.0",
+    "llama-index-readers-file>=0.2.0",
+    "llama-index-readers-github>=0.2.0",
+    "llama-index-packs-code-hierarchy>=0.2.0",
+    "llama-index-embeddings-openai>=0.2.0",
+    "llama-index-llms-openai>=0.2.0",
+    "llama-index-retrievers-bm25>=0.2.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.8.0",
+    "tiktoken>=0.7.0",
+    "tree-sitter>=0.22.0",
+    "rank-bm25>=0.2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.8",
+    "black>=24.4.2",
+    "ruff>=0.5.0",
+    "mypy>=1.10.0",
+    "isort>=5.13.2",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src", "src.*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.isort]
+profile = "black"
